@@ -1,0 +1,28 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
+  <TemplateData>
+    <Name>Application.Tests</Name>
+    <Description>&lt;No description available&gt;</Description>
+    <ProjectType>CSharp</ProjectType>
+    <ProjectSubType>
+    </ProjectSubType>
+    <SortOrder>1000</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>Application.Tests</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LocationField>Enabled</LocationField>
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+    <CreateInPlace>true</CreateInPlace>
+    <Icon>__TemplateIcon.ico</Icon>
+  </TemplateData>
+  <TemplateContent>
+    <Project TargetFileName="Application.Tests.csproj" File="Application.Tests.csproj" ReplaceParameters="true">
+      <Folder Name="UseCases" TargetFolderName="UseCases">
+        <ProjectItem ReplaceParameters="true" TargetFileName="CreateUseCaseTest.cs">CreateUseCaseTest.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="DeleteUseCaseTest.cs">DeleteUseCaseTest.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="GetUseCaseTest.cs">GetUseCaseTest.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="UpdateUseCaseTest.cs">UpdateUseCaseTest.cs</ProjectItem>
+      </Folder>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Usings.cs">Usings.cs</ProjectItem>
+    </Project>
+  </TemplateContent>
+</VSTemplate>
