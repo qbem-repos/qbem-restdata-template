@@ -6,12 +6,12 @@
     <ProjectGuid>87e396b1-405d-4b70-9ac1-a27e039e9f0c</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
-    <DockerServiceName>webapi</DockerServiceName>
+    <DockerServiceName>domainnames</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">
       <DependentUpon>docker-compose.yml</DependentUpon>
     </None>
     <None Include="docker-compose.yml" />
-  </ItemGroup>
+  </ItemGroup>  
 </Project>

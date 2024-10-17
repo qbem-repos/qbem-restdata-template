@@ -2,51 +2,57 @@
 using NSubstitute;
 using System.Linq.Expressions;
 
-namespace Application.Tests.UseCases;
+namespace DomainNames.Application.Tests.UseCases;
 
-public class DeleteUseCaseTest
+public class DeleteDomainNameUseCaseTest
 {
-    private IRepository<MyEntity> _repository = Substitute.For<IRepository<MyEntity>>();
-    private DeleteUseCase<MyEntity> _deleteUseCase;
+    private readonly IRepository<DomainName> _repository = Substitute.For<IRepository<DomainName>>();
+    private readonly DeleteUseCase<DomainName> _deleteUseCase;
 
-    public DeleteUseCaseTest()
+    public DeleteDomainNameUseCaseTest()
     {
-        _deleteUseCase = new DeleteUseCase<MyEntity>(_repository);
+        _deleteUseCase = new DeleteUseCase<DomainName>(_repository);
     }
 
     [Fact]
     public async Task DeleteReturnsNotFoundAsync()
     {
+        // arrange
         var tenantId = "Test";
         var entityId = "Test";
 
-        Expression<Func<MyEntity, bool>> filter = x => x.TenantId == tenantId
+        Expression<Func<DomainName, bool>> filter = x => x.TenantId == tenantId
                                                && x.Id == entityId
                                                && x.DeletedAt == default;
 
+        // act
         await _deleteUseCase.DeleteAsync(tenantId, entityId);
-
         _repository.ReceivedWithAnyArgs().Find(filter);
+
+        // assert
         _repository.ReceivedCalls().Count().Should().Be(1);
     }
 
     [Fact]
     public async Task DeleteReturnsOkAsync()
     {
+        // arrange
         var tenantId = "Test";
         var entityId = "Test";
 
-        Expression<Func<MyEntity, bool>> filter = x => x.TenantId == tenantId
+        Expression<Func<DomainName, bool>> filter = x => x.TenantId == tenantId
                                                && x.Id == entityId
                                                && x.DeletedAt == default;
 
-        var entity = new MyEntity();
-        _repository.Find(filter).ReturnsForAnyArgs(new List<MyEntity>() { entity });
+        var entity = new DomainName();
+        _repository.Find(filter).ReturnsForAnyArgs(new List<DomainName>() { entity });
 
+        // act
         await _deleteUseCase.DeleteAsync(tenantId, entityId);
-
         _repository.ReceivedWithAnyArgs().Find(filter);
         await _repository.ReceivedWithAnyArgs().UpdateAsync(entity);
+
+        // assert
         _repository.ReceivedCalls().Count().Should().Be(2);
     }
 }

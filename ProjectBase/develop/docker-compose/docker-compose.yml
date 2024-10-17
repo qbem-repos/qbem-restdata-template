@@ -20,11 +20,11 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
       ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
 
-  webapi:
-    image: ${DOCKER_REGISTRY-}webapi
+  domainnames:
+    image: ${DOCKER_REGISTRY-}domainnames
     build:
       context: .
-      dockerfile: ../../Src/WebApi/Dockerfile
+      dockerfile: ../../Src/DomainNames.WebApi/Dockerfile
     environment:  
       - CONNECTION_STRING=mongodb://root:example@mongo:27017/
       - DATABASE_NAME=Telefone_db

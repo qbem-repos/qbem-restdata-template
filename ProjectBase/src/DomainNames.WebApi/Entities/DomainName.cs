@@ -1,9 +1,9 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using QBem.RestData.Toolkit.Domain.Abstractions;
 
-namespace WebApi.Entities;
+namespace DomainNames.WebApi;
 
 [BsonIgnoreExtraElements]
-public record MyEntity() : Entity()
+public record DomainName() : Entity()
 {
 }

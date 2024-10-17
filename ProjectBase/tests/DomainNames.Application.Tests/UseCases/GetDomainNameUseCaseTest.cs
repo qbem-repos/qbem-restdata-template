@@ -1,28 +1,30 @@
 ﻿using NSubstitute;
 using System.Linq.Expressions;
 
-namespace Application.Tests.UseCases;
+namespace DomainNames.Application.Tests.UseCases;
 
-public class GetUseCaseTest
+public class GetDomainNameUseCaseTest
 {
-    private IRepository<MyEntity> _repository = Substitute.For<IRepository<MyEntity>>();
-    private GetUseCase<MyEntity> _getUseCase;
+    private readonly IRepository<DomainName> _repository = Substitute.For<IRepository<DomainName>>();
+    private readonly GetUseCase<DomainName> _getUseCase;
 
-    public GetUseCaseTest()
+    public GetDomainNameUseCaseTest()
     {
-        _getUseCase = new GetUseCase<MyEntity>(_repository);
+        _getUseCase = new GetUseCase<DomainName>(_repository);
     }
 
     [Fact]
     public void GetReturnsNull()
     {
+        // arrange
         var tenantId = "Test";
         var entityId = "Test";
 
-        Expression<Func<MyEntity, bool>> filter = x => x.TenantId == tenantId
+        Expression<Func<DomainName, bool>> filter = x => x.TenantId == tenantId
                                                && x.Id == entityId
                                                && x.DeletedAt == default;
 
+        // act
         var result = _getUseCase.Get(tenantId, entityId);
 
         _repository.ReceivedWithAnyArgs().Find(filter);
@@ -32,25 +34,32 @@ public class GetUseCaseTest
     [Fact]
     public void GetReturnsEntityFounded()
     {
+        // arrange
         var tenantId = "Test";
         var entityId = "Test";
 
-        Expression<Func<MyEntity, bool>> filter = x => x.TenantId == tenantId
+        Expression<Func<DomainName, bool>> filter = x => x.TenantId == tenantId
                                                && x.Id == entityId
                                                && x.DeletedAt == default;
 
-        var entities = new List<MyEntity>()
+        var entities = new List<DomainName>()
         {
-            new MyEntity(),
-            new MyEntity()
+            new DomainName(),
+            new DomainName()
         };
 
         _repository.Find(filter).ReturnsForAnyArgs(entities);
 
+        // act
         var result = _getUseCase.Get(tenantId, entityId);
 
         _repository.ReceivedWithAnyArgs().Find(filter);
-        Assert.NotNull(result);
-        Assert.Equal(result, entities[0]);
+
+        // assert
+        Assert.Multiple(() =>
+        {
+            Assert.NotNull(result);
+            Assert.Equal(result, entities[0]);
+        });
     }
 }
