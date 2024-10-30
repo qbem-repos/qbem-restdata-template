@@ -1,0 +1,15 @@
+services:
+  domainnames-mongo:
+    image: mongo
+
+  domainnames-mongo-express:
+    image: mongo-express
+
+  domainnames-api:
+    image: ${DOCKER_REGISTRY-}domainnames
+    build:
+      context: ../../
+      dockerfile: ./Src/DomainNames.RestData/Dockerfile
+      args:
+        USERNAME_GITHUB : ${USERNAME_GITHUB}
+        PERSONAL_ACCESS_TOKEN_GITHUB : ${PERSONAL_ACCESS_TOKEN_GITHUB}
