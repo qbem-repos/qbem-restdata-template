@@ -26,6 +26,19 @@
     }
   ],
   "sources": [
+  {
+      "include": [
+        "**/*"
+      ],
+      "source": "./setup/",
+      "target": "./setup/"
+    },  
+    "include": [
+        "**/*"
+      ],
+      "source": "./terraform/",
+      "target": "./terraform/"
+    },  
     {
       "include": [
         "**/*"
