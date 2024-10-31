@@ -16,4 +16,8 @@
     <PackageReference Include="Qbem.RestData.Toolkit" Version="0.0.4" />
   </ItemGroup>
 
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="powershell -NoProfile -ExecutionPolicy Unrestricted -file $(SolutionDir)\.github\ConfigurarGithubCredentialsWindows.ps1" Condition="'$(Configuration)' == 'Debug'" />
+    <Exec Command="powershell -NoProfile -ExecutionPolicy Unrestricted -file $(SolutionDir)\setup\CriarEnvFile.ps1 $(SolutionDir)" Condition="'$(Configuration)' == 'Debug'" />
+  </Target>
 </Project>

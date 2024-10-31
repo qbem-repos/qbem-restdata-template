@@ -363,3 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 *.env
 *.exe
+/develop/docker-compose/postgres_data
+/develop/docker-compose/pgadmin_data/pgadmin

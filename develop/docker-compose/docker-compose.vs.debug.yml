@@ -1,22 +1,48 @@
 services:
   domainnames-mongo:
     container_name: domainnames-mongo
-    restart: always
     ports:
-      - 27017:27017
+      - "27017"
+    restart: always    
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_API_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_API_ROOT_PASSWORD}
 
   domainnames-mongo-express:
     container_name: domainnames-mongo-express
     restart: always
     ports:
-      - 8081:8081
+      - 16542:8081
     environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: example
-      ME_CONFIG_MONGODB_URL: mongodb://root:example@domainnames-mongo:27017/
+      ME_CONFIG_BASICAUTH_USERNAME: ${MONGO_API_ROOT_USERNAME}
+      ME_CONFIG_BASICAUTH_PASSWORD: ${MONGO_API_ROOT_PASSWORD}
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_API_ROOT_USERNAME}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_API_ROOT_PASSWORD}
+      ME_CONFIG_MONGODB_URL: mongodb://${MONGO_API_ROOT_USERNAME}:${MONGO_API_ROOT_PASSWORD}@domainnames-mongo/
+    depends_on:
+      - domainnames-mongo
+
+  domainnames-postgres:
+    container_name: domainnames-postgres
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+  domainnames-postgres-pgadmin:
+    container_name: domainnames-postgres-pgadmin
+    ports:
+      - 16543:80
+    volumes:
+      - ./pgadmin_data/pgadmin:/var/lib/pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    depends_on:
+      - domainnames-postgres
+#mongodb://root:example@mongo:27017/
 
   domainnames-api:
     container_name: domainnames-api
@@ -27,7 +53,7 @@ services:
       - ASPNETCORE_HTTP_PORTS=5000
       - Logging__Loglevel__Default=Debug
       - Logging__Loglevel__Microsoft.AspNetCore=Debug
-      - CONNECTION_STRING=mongodb://root:example@domainnames-mongo:27017/
+      - CONNECTION_STRING=mongodb://${MONGO_API_ROOT_USERNAME}:${MONGO_API_ROOT_PASSWORD}@domainnames-mongo/
       - DATABASE_NAME=Domainnames_db
       - COLLECTION_NAME=Domainnames_collection
     ports:
@@ -35,3 +61,5 @@ services:
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    depends_on:
+      - domainnames-mongo

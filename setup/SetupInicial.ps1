@@ -2,13 +2,13 @@
 ..\.github\ConfigurarGithubCredentialsWindows.ps1
 
 #Criar o arquivo e atribuir .\develop\docker-compose\.env
-Add-Content -Path ..\..\develop\docker-compose\.env -Value "USERNAME_GITHUB=$env:USERNAME_GITHUB"
-Add-Content -Path ..\..\develop\docker-compose\.env -Value "PERSONAL_ACCESS_TOKEN_GITHUB=$env:PERSONAL_ACCESS_TOKEN_GITHUB"
+.\CriarEnvFile.ps1
 
 #Criar Repositorio do Github
 $terraformTool = "./terraform.exe"
 $terraformToolExiste = [System.IO.File]::Exists($terraformTool)
 $terraformZip = "./terraform.zip"
+$terraformPath = "../../terraform"
 if($terraformToolExiste){
 	Invoke-WebRequest -Uri "https://releases.hashicorp.com/terraform/1.9.8/terraform_1.9.8_windows_386.zip" -OutFile $terraformZip
 	Expand-Archive -LiteralPath $terraformZip -DestinationPath $terraformPath

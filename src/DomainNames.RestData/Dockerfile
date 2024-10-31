@@ -1,4 +1,4 @@
-#TODO: configurar para um imagem base (REGISTRY QBEM) para .NET CORE 8
+ #TODO: configurar para um imagem base (REGISTRY QBEM) para .NET CORE 8
 FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS base
 USER app
 WORKDIR /app

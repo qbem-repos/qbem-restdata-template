@@ -1,9 +1,15 @@
 services:
   domainnames-mongo:
-    image: mongo
+    image: mongo:noble
 
   domainnames-mongo-express:
     image: mongo-express
+
+  domainnames-postgres:    
+    image: postgres:16.2-alpine
+
+  domainnames-postgres-pgadmin:    
+    image: dpage/pgadmin4
 
   domainnames-api:
     image: ${DOCKER_REGISTRY-}domainnames
