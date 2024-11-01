@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Qbem.RestData.WebApi</id>
+    <version>1.0.0</version>
+    <description>Template do Visual Studio para otimizar o desenvolvimento de RestData.</description>
+    <authors>qbem.net.br</authors>
+    <title>Qbem RestData WebApi Templates</title>
+    <copyright>Copyright 2024: qbem.net.br. All right Reserved</copyright>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <tags>microservices Web API Windows Linux</tags>
+    <projectUrl>https://github.com/qbem-repos/qbem-restdata-template</projectUrl>
+    <repository type="git" url="https://github.com/qbem-repos/qbem-restdata-template.git" branch="main"  />
+    <language>pt-BR</language>
+	<packageTypes>
+      <packageType name="Template" />
+    </packageTypes>
+  </metadata>
+  <files>
+    <file src="**" exclude="**\bin\**\*;**\obj\**\*;**\*.user;**\*.lock.json;_rels\**\*;package\**\*" />
+  </files>
+</package>

@@ -1,0 +1,87 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "qbem.net.br",
+  "classifications": [
+    "microservices",
+    "Web API",
+    "Windows",
+    "Linux"
+  ],
+  "name": "Qbem RestData WebApi",
+  "description": "A RestData project Qbem microservices api",
+  "groupIdentity": "Qbem.RestData.WebApi",
+  "identity": "Qbem.RestData.CSharp",
+  "shortName": "RestData-api",
+  "defaultName": "DomainName",
+  "tags": {
+    "language": "C#",
+    "type": "solution",
+	"editorTreatAs":"solution"
+  },
+  "sourceName": "DomainName",
+  "preferNameDirectory": true,
+  "primaryOutputs": [
+    {
+      "path": "DomainNames.sln"
+    }
+  ],
+  "sources": [
+  {
+      "include": [
+        "**/*"
+      ],
+      "source": "./setup/",
+      "target": "./setup/"
+    },  
+    "include": [
+        "**/*"
+      ],
+      "source": "./terraform/",
+      "target": "./terraform/"
+    },  
+    {
+      "include": [
+        "**/*"
+      ],
+      "source": "./develop/",
+      "target": "./develop/"
+    },
+    {
+      "include": [
+        "**/*"
+      ],
+      "source": "./src/",
+      "target": "./src/"
+    },
+    {
+      "include": [
+        "**/*"
+      ],
+      "source": "./tests/",
+      "target": "./tests/"
+    },
+    {
+      "include": [
+        "DomainNames.sln",
+        ".gitignore",
+        "Nuget.Config",
+        ".dockerignore",
+        "README.md",
+      ],
+      "source": "./",
+      "target": "./"
+    }
+  ],
+  "postActions": [
+    {
+      "description": "Restore NuGet packages required by this project.",
+      "manualInstructions": [
+        {
+          "text": "Run 'dotnet restore'"
+        }
+      ],
+      "actionId": "210D431B-A78B-4D2F-B762-4ED3E3EA9025",
+      "continueOnError": true
+    }
+  ]
+}
